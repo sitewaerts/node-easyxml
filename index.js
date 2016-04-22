@@ -237,6 +237,9 @@ EasyXml.prototype.parseChildElement = function(parentXmlNode, parentObjectNode) 
         if (typeof child.toJSON === 'function') {
           // .toJSON() is a common JS convention for serializing an object
           el.text = child.toJSON();
+        } else  if (typeof child.appendToXMLNode === 'function') {
+          // this object provides a custom xml serialisation method
+          child.appendToXMLNode(el);
         } else {
           // Object, go deeper
           this.parseChildElement(el, child);
